@@ -6,5 +6,5 @@ import NavBar from "./components/NavBarCustom.vue";
   <header>
     <NavBar></NavBar>
   </header>
-  <h1 class="text-3xl font-bold">Hello world!</h1>
+  <router-view />
 </template>
