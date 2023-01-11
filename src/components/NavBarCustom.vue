@@ -1,63 +1,107 @@
 <template>
-  <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900">
-    <div class="container flex flex-wrap items-center justify-between mx-auto">
-      <a href="/" class="flex items-center">
-        <span
-          class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
-          >SuaDev</span
-        >
-      </a>
-      <button
-        data-collapse-toggle="navbar-default"
-        type="button"
-        class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-        aria-controls="navbar-default"
-        aria-expanded="false"
-      >
-        <span class="sr-only">Open main menu</span>
-        <svg
-          class="w-6 h-6"
-          aria-hidden="true"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-            clip-rule="evenodd"
-          ></path>
-        </svg>
-      </button>
-      <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-        <ul
-          class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
-        >
-          <li>
-            <router-link
-              to="/"
-              class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
-              aria-current="page"
-              >Home</router-link
-            >
-          </li>
-          <li>
-            <router-link
-              to="/about"
-              class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-              >About</router-link
-            >
-          </li>
-
-          <li>
-            <router-link
-              to="/"
-              class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-              >Contact</router-link
-            >
-          </li>
-        </ul>
-      </div>
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <a class="navbar-brand justify-content-start" href="#">SuaDev</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarCollapse"
+      aria-controls="navbarCollapse"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#"
+            >Home <span class="sr-only">(current)</span></a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav justify-content-end">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+      </ul>
     </div>
   </nav>
+  <!-- https://codepen.io/pensart/pen/xeqgzR -->
 </template>
+
+
+<style scoped>
+@import "../assets/variables.css";
+.navbar .navbar-toggler {
+  z-index: 1000;
+  background-color: var(--primary-color);
+  padding: 6px 6px;
+  border-radius: 100%;
+}
+.navbar {
+  color: var(--primary-color);
+}
+
+.navbar-brand,
+.navbar-nav {
+  background-color: var(--primary-color);
+  padding: 6px 18px;
+  border-radius: 50px;
+}
+
+@media (max-width: 991.98px) {
+  .navbar .navbar-collapse {
+    background: rgba(0, 0, 0, 0.85);
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: opacity 0.35s ease;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    text-align: center !important;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+  .navbar .navbar-collapse.collapse {
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .navbar .navbar-collapse.collapsing[style*="height"] {
+    opacity: 1;
+    height: 100vh !important;
+  }
+  .navbar .navbar-collapse.collapsing {
+    opacity: 0;
+    height: 100vh;
+  }
+  .navbar .navbar-collapse.collapse.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .navbar .navbar-collapse .navbar-nav {
+    margin-right: initial !important;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .navbar-nav {
+    margin-left: initial !important;
+  }
+}
+</style>
+
+//https://www.codeply.com/go/GXRF6aA5Du
