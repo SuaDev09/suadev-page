@@ -2,13 +2,23 @@
 /* Primefaces imports */
 @import "primeng/resources/themes/lara-dark-purple/theme.css";
 @import "primeng/resources/primeng.css";
-
+@import "primeicons/primeicons.css";
 /* Custom imports */
 @import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300&display=swap");
 
 /* Variable's globals*/
 :root {
   --font-family: "Montserrat Alternates", sans-serif;
+  --font-weight-buttons: 400;
+  --font-weight-titles: 700;
+  --font-weight-text: 300;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100%;
 }
 
 body {
