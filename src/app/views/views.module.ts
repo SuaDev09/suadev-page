@@ -5,6 +5,8 @@ import { ProjectsComponent } from './projects/projects.component';
 import { ComponentsModule } from '../components/components.module';
 import { BlogComponent } from './blog/blog.component';
 import { AboutComponent } from './about/about.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -12,6 +14,8 @@ import { AboutComponent } from './about/about.component';
     ProjectsComponent,
     BlogComponent,
     AboutComponent,
+    NotFoundComponent,
+    ContactComponent,
   ],
   imports: [CommonModule, ComponentsModule],
   exports: [HomeComponent, ProjectsComponent, BlogComponent, AboutComponent],
