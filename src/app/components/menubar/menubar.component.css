@@ -20,7 +20,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 40%;
+  width: 120px;
   height: 100%;
 }
 .links a {
@@ -36,7 +36,7 @@
   font-weight: 500;
 }
 
-.links a.active {
+.links a.is-active {
   animation: active 0.5s ease-in-out;
   background-color: #ef5473;
   border-radius: 5px;

@@ -16,10 +16,6 @@ export class MenubarComponent implements OnInit {
         icon: 'pi pi-fw pi-power-off',
       },
       {
-        label: 'Dashboard',
-        icon: 'pi pi-fw pi-power-off',
-      },
-      {
         label: 'Blog',
         icon: 'pi pi-fw pi-power-off',
       },

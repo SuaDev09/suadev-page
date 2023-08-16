@@ -1,9 +1,6 @@
 <nav class="menubar">
   <div class="logo">LOGO</div>
-  <menu class="links">
-    <a href="">Projects</a>
-    <a href="">Dashboard</a>
-    <a href="">Blog</a>
-    <a class="active" href="">About</a>
+  <menu class="links" *ngFor="let item of items">
+    <a routerLink="/{{item.label}}" routerLinkActive="is-active">{{item.label}}</a>
   </menu>
 </nav>

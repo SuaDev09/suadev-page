@@ -11,7 +11,7 @@
   --font-family: "Montserrat Alternates", sans-serif;
   --font-weight-buttons: 400;
   --font-weight-titles: 700;
-  --font-weight-text: 300;
+  --font-weight-text: 600;
 }
 * {
   margin: 0;
@@ -19,8 +19,6 @@
   box-sizing: border-box;
   height: 100vh;
   width: 100%;
-}
-
-body {
   font-family: var(--font-family);
+  font-weight: var(--font-weight-text);
 }
