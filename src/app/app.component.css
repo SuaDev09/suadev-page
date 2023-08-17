@@ -3,4 +3,10 @@
   min-width: 450px;
   width: 900px;
   max-width: 900px;
+  height: 100vh;
+}
+
+.main-container .content {
+  width: 95%;
+  margin: 0 auto;
 }

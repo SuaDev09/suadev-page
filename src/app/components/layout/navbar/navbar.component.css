@@ -36,8 +36,13 @@
   font-weight: 500;
 }
 
+.links a:hover {
+  background-color: #500a827d;
+  border-radius: 5px;
+}
+
 .links a.is-active {
   animation: active 0.5s ease-in-out;
-  background-color: #ef5473;
+  background-color: #500a827d;
   border-radius: 5px;
 }

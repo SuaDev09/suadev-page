@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MenubarComponent } from './menubar/menubar.component';
 import { PrimengModule } from '../primeng.module';
+import { LayoutModule } from './layout/layout.module';
 
 @NgModule({
-  declarations: [MenubarComponent],
-  imports: [CommonModule, PrimengModule],
-  exports: [MenubarComponent],
+  declarations: [],
+  imports: [CommonModule, PrimengModule, LayoutModule],
+  exports: [LayoutModule],
 })
 export class ComponentsModule {}
