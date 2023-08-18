@@ -1,5 +1,9 @@
 <nav class="menubar">
-  <div class="logo">LOGO</div>
+  <div class="logo">
+    <a routerLink="/">
+      <img class="logo-img" [src]="'assets/icons/4.svg'" alt="">
+    </a>
+  </div>
   <menu class="links" *ngFor="let item of items">
     <a routerLink="/{{item.label}}" routerLinkActive="is-active">{{item.label}}</a>
   </menu>
