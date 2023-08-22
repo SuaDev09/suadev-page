@@ -1,6 +1,51 @@
+@import "../../.././styles.css";
+
 .content {
   width: 100%;
 }
 
 .hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  align-items: center;
+  flex-direction: row-reverse;
+  gap: 2rem;
+}
+.hero .hero__image {
+  width: 70%;
+  height: 70%;
+  aspect-ratio: auto 700 / 700;
+}
+
+.hero .hero__content h1 {
+  font-size: var(--font-size-titles);
+}
+
+.hero .hero__content h1 b.name {
+  color: var(--font-color-purple-dark);
+}
+
+.hero .hero__content p {
+  font-size: var(--font-size-text);
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.services__content .services__content_items {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.services__content .services__content_items .services__content_items__item {
+  width: 100%;
+  height: 100%;
+  padding: 10px 12px;
+  color: #435334;
+  background-color: #cedebd;
+  border-radius: var(--border-radius);
 }

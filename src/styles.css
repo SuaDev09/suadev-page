@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 /* Primefaces imports */
-@import "primeng/resources/themes/lara-dark-purple/theme.css";
+@import "primeng/resources/themes/lara-light-purple/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 /* Custom imports */
@@ -9,9 +9,19 @@
 /* Variable's globals*/
 :root {
   --font-family: "Montserrat Alternates", sans-serif;
+  --font-size: 16px;
+  --font-size-titles: 2rem;
+  --font-size-text: 1rem;
+  --font-size-buttons: 1.2rem;
   --font-weight-buttons: 400;
   --font-weight-titles: 700;
   --font-weight-text: 600;
+  --font-color: #070100;
+  --font-color-white: #e7e7e0;
+  --bg-color-pink: #ef5473;
+  --hover-color: #500a827d;
+  --font-color-purple-dark: #500a82;
+  --border-radius: 5px;
 }
 * {
   margin: 0;
@@ -24,4 +34,5 @@
 
 html {
   min-height: 100vh;
+  /* background-color: #f2f1f2; */
 }
