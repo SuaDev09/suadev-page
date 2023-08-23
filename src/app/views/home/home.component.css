@@ -34,49 +34,57 @@
   text-align: left;
 }
 
-.services {}
+.services {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  gap: 15px;
+  width: 100%;
+  flex-direction: column;
+}
 
 .services .services__general {
-  width: 40%;
   display: flex;
-  justify-content: left;
   align-items: center;
   flex-direction: row;
+  gap: 25px;
 }
 
 .services .services__general .services__general__title {
   font-size: var(--font-size-titles);
   font-weight: var(--font-weight-titles);
   color: var(--color-green-dark);
-  margin-bottom: 1rem;
+
   display: flex;
   align-items: center;
+  width: auto;
 }
 
+
 .services .services__general .services__general__button {
+  width: auto;
   display: flex;
   align-items: center;
   flex-direction: row;
+  padding: 10px 20px;
+  gap: 10px;
 
-  height: 40px;
-  padding: 5px 6px;
   border-radius: var(--border-radius);
-  background-color: var(--color-green-medium);
+  background-color: var(--color-green-medium) !important;
+
+  cursor: pointer;
 }
 
 .services .services__general .services__general__button .services_general_button_text {
-  font-size: 1rem;
-  font-weight: var(--font-weight-buttons);
+  font-size: var(--font-size-text);
+  font-weight: var(--font-weight-text);
   color: var(--font-color);
-  text-align: center;
+  margin-left: 5px;
 }
 
 .services .services__general .services__general__button .services_general_button_icon {
-  margin: 0 10px 0 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1rem;
+  width: auto;
 }
 
 .services__content .services__content_items {
@@ -93,6 +101,6 @@
   padding: 10px 12px;
   /* color: var(--color-green-dark); */
   color: var(--font-color);
-  background-color: #cedebd;
+  background-color: var(--color-green-medium);
   border-radius: var(--border-radius);
 }

@@ -6,6 +6,7 @@ import { BlogComponent } from './blog/blog.component';
 import { AboutComponent } from './about/about.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ContactComponent } from './contact/contact.component';
+import { PrimengModule } from '../primeng.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { ContactComponent } from './contact/contact.component';
     NotFoundComponent,
     ContactComponent,
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, PrimengModule],
   exports: [HomeComponent, ProjectsComponent, BlogComponent, AboutComponent],
 })
 export class ViewsModule {}
