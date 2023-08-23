@@ -13,6 +13,7 @@
   flex-direction: row-reverse;
   gap: 2rem;
 }
+
 .hero .hero__image {
   width: 70%;
   height: 70%;
@@ -24,13 +25,58 @@
 }
 
 .hero .hero__content h1 b.name {
-  color: var(--font-color-purple-dark);
+  color: var(--color-green-dark);
 }
 
 .hero .hero__content p {
   font-size: var(--font-size-text);
   margin-top: 1rem;
   text-align: left;
+}
+
+.services {}
+
+.services .services__general {
+  width: 40%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-direction: row;
+}
+
+.services .services__general .services__general__title {
+  font-size: var(--font-size-titles);
+  font-weight: var(--font-weight-titles);
+  color: var(--color-green-dark);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.services .services__general .services__general__button {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+
+  height: 40px;
+  padding: 5px 6px;
+  border-radius: var(--border-radius);
+  background-color: var(--color-green-medium);
+}
+
+.services .services__general .services__general__button .services_general_button_text {
+  font-size: 1rem;
+  font-weight: var(--font-weight-buttons);
+  color: var(--font-color);
+  text-align: center;
+}
+
+.services .services__general .services__general__button .services_general_button_icon {
+  margin: 0 10px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
 }
 
 .services__content .services__content_items {
@@ -45,7 +91,8 @@
   width: 100%;
   height: 100%;
   padding: 10px 12px;
-  color: #435334;
+  /* color: var(--color-green-dark); */
+  color: var(--font-color);
   background-color: #cedebd;
   border-radius: var(--border-radius);
 }

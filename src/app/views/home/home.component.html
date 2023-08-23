@@ -1,7 +1,8 @@
 <div class="content">
   <section class="hero">
     <div class="hero__content">
-      <h1>{{ H1_TITLE }}
+      <h1>
+        {{ H1_TITLE }}
         <b class="name">Francisco Suarez</b>
       </h1>
       <p>{{ P_CONTENT }}</p>
@@ -11,10 +12,12 @@
     </div>
   </section>
   <section class="services">
-
     <div class="services__general">
       <h1 class="services__general__title">Services</h1>
-      <a class="services__general__button">Get in touch </a>
+      <a class="services__general__button">
+        <p class="services_general_button_text">Get in touch</p>
+        <i class="services_general_button_icon pi pi-inbox"></i>
+      </a>
     </div>
 
     <div class="services__content">
@@ -25,9 +28,12 @@
         learning new technologies and am always looking for my next challenge.
       </p>
       <div class="services__content_items">
-        <div class="services__content_items__item" *ngFor="let item of SERVICES_ITEMS">
+        <div
+          class="services__content_items__item"
+          *ngFor="let item of SERVICES_ITEMS"
+        >
           <p>
-            {{item}}
+            {{ item }}
           </p>
         </div>
       </div>

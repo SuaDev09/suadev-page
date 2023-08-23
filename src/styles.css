@@ -4,25 +4,25 @@
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 /* Custom imports */
-@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 /* Variable's globals*/
 :root {
-  --font-family: "Montserrat Alternates", sans-serif;
+  --font-family: 'Montserrat', sans-serif;
   --font-size: 16px;
   --font-size-titles: 2rem;
   --font-size-text: 1rem;
   --font-size-buttons: 1.2rem;
   --font-weight-buttons: 400;
   --font-weight-titles: 700;
-  --font-weight-text: 600;
+  --font-weight-text: 500;
   --font-color: #070100;
-  --font-color-white: #e7e7e0;
-  --bg-color-pink: #ef5473;
-  --hover-color: #500a827d;
-  --font-color-purple-dark: #500a82;
   --border-radius: 5px;
+  --color-green-dark: #435334;
+  --color-green-light: #CEDEBD;
+  --color-green-medium: #9EB384;
 }
+
 * {
   margin: 0;
   padding: 0;

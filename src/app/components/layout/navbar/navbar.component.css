@@ -36,6 +36,7 @@
   width: 120px;
   height: 100%;
 }
+
 .links a {
   height: 40px;
   padding: 0 1rem;
@@ -50,12 +51,12 @@
 }
 
 .links a:hover {
-  background-color: var(--hover-color);
+  background-color: var(--color-green-medium);
   border-radius: var(--border-radius);
 }
 
 .links a.is-active {
   animation: active 0.5s ease-in-out;
-  background-color: var(--hover-color);
+  background-color: var(--color-green-medium);
   border-radius: 5px;
 }
