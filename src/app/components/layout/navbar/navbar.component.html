@@ -4,7 +4,21 @@
       <img class="logo-img" [src]="'assets/icons/6.svg'" alt="">
     </a>
   </div>
-  <menu class="links" *ngFor="let item of items">
-    <a routerLink="/{{item.label}}" routerLinkActive="is-active">{{item.label}}</a>
-  </menu>
+  <ng-container *ngIf="!sidebarVisible">
+    <menu class="links" *ngFor="let item of items">
+      <a routerLink="/{{item.label}}" routerLinkActive="is-active">{{item.label}}</a>
+    </menu>
+  </ng-container>
+
+  <ng-container *ngIf="sidebarVisible">
+    <p-sidebar [(visible)]="sidebarVisible" position="right">
+      <menu *ngFor="let item of items">
+        <a routerLink="/{{item.label}}" routerLinkActive="is-active">{{item.label}}</a>
+      </menu>
+    </p-sidebar>
+    <p-button (click)="sidebarVisible = true" icon="pi pi-bars"></p-button>
+  </ng-container>
+
 </nav>
+
+
