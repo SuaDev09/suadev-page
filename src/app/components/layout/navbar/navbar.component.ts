@@ -17,6 +17,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   sidenav!: Sidebar;
   items: MenuItem[] | undefined;
   sidebarVisible: boolean = false;
+  hiddenSidebar: boolean = false;
 
   constructor(private observer: BreakpointObserver, private router: Router) {}
 
@@ -25,13 +26,10 @@ export class NavbarComponent implements OnInit, AfterViewInit {
       .observe(['(max-width: 800px)'])
       .pipe(delay(1), untilDestroyed(this))
       .subscribe((res: any) => {
-        console.log(res)
         if (res.matches) {
-          this.sidenav.modal = false;
-          this.sidenav.visible = false;
+          this.hiddenSidebar = true;
         } else {
-          this.sidenav.modal = true;
-          this.sidenav.visible = true;
+          this.hiddenSidebar = false;
         }
       });
 
