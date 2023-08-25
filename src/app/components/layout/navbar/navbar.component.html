@@ -1,24 +1,31 @@
 <nav class="menubar">
   <div class="logo">
     <a routerLink="/">
-      <img class="logo-img" [src]="'assets/icons/6.svg'" alt="">
+      <img class="logo-img" [src]="'assets/icons/6.svg'" alt="" />
     </a>
   </div>
-  <ng-container *ngIf="!sidebarVisible">
+  <ng-container>
     <menu class="links" *ngFor="let item of items">
-      <a routerLink="/{{item.label}}" routerLinkActive="is-active">{{item.label}}</a>
+      <a routerLink="/{{ item.label }}" routerLinkActive="is-active">{{
+        item.label
+        }}</a>
     </menu>
   </ng-container>
 
-  <ng-container *ngIf="sidebarVisible">
+  <ng-container >
     <p-sidebar [(visible)]="sidebarVisible" position="right">
-      <menu *ngFor="let item of items">
-        <a routerLink="/{{item.label}}" routerLinkActive="is-active">{{item.label}}</a>
-      </menu>
+      <ng-template pTemplate="header">Suadev Content</ng-template>
+      <ng-template pTemplate="content">
+        <menu *ngFor="let item of items">
+          <a routerLink="/{{ item.label }}" routerLinkActive="is-active">{{
+            item.label
+            }}</a>
+        </menu>
+      </ng-template>
+      <ng-template pTemplate="footer">Footer Content</ng-template>
     </p-sidebar>
+
     <p-button (click)="sidebarVisible = true" icon="pi pi-bars"></p-button>
   </ng-container>
 
 </nav>
-
-
