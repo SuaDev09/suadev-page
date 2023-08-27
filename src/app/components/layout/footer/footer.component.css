@@ -32,11 +32,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--font-color);
 }
 
 .footer .links .link:hover {
-  background-color: var(--color-green-medium);
+  background-color: var(--color-purple-medium);
+  color: var(--color-purple-light) !important;
 }
 
 .footer small {

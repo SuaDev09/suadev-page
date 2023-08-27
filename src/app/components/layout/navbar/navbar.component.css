@@ -2,7 +2,7 @@
 @import "../../../.././styles.css";
 
 @media screen and (max-width: 950px) {
-  .menubar{
+  .menubar {
     padding: 0px 20px;
   }
 }
@@ -57,17 +57,19 @@
 }
 
 .links a:hover {
-  background-color: var(--color-green-medium);
+  background-color: var(--color-purple-medium);
+  color: var(--color-purple-light);
   border-radius: var(--border-radius);
 }
 
 .links a.is-active {
   animation: active 0.5s ease-in-out;
-  background-color: var(--color-green-medium);
+  background-color: var(--color-purple-medium);
+  color: var(--color-purple-light);
   border-radius: 5px;
 }
 
-.menubar__button{
+.menubar__button {
   display: flex;
   align-items: center;
   justify-content: flex-end;
