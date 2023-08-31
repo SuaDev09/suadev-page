@@ -12,12 +12,14 @@
   --font-size: 16px;
   --font-size-titles: 48px;
   --font-size-h2: 36px;
-  --font-size-text: 1rem;
+  --font-size-text: 16px;
   --font-size-buttons: 1.2rem;
   --font-weight-buttons: 400;
   --font-weight-titles: 700;
   --font-weight-text: 500;
-  --font-color: #070100;
+  --font-color-black: #070100;
+  --font-color-dark: #43225e;
+  --font-color: white;
   --border-radius: 5px;
   --color-green-dark: #435334;
   --color-green-light: #cedebd;
@@ -25,7 +27,7 @@
   --color-purple-light: #e9d5da;
   --color-purple-medium: #827397;
   --color-purple-dark: #8e46d6;
-  --color-purple-darker: #503062;
+  --color-purple-darker: #43225e;
   --background-color: #fef7ff;
 }
 
@@ -41,12 +43,10 @@
 html {
   min-height: 100vh;
   /* background-color: var(--background-color); */
-  background: -webkit-linear-gradient(90deg, #eccbff, #fbd9ff, #ffe5e7);
-  background: linear-gradient(90deg, #eccbff, #fbd9ff, #ffe5e7);
+  /* background: -webkit-linear-gradient(90deg, #eccbff, #fbd9ff, #ffe5e7);
+  background: linear-gradient(90deg, #eccbff, #fbd9ff, #ffe5e7); */
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
-  /* when using dark mode
-  background: -webkit-linear-gradient(90deg, #131111,#43225e);
-  background: linear-gradient(90deg, #131111,#43225e);
-  */
+  background: -webkit-linear-gradient(90deg, #131111, #43225e);
+  background: linear-gradient(90deg, #131111, #43225e);
 }
