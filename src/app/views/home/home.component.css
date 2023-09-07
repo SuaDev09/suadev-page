@@ -20,22 +20,22 @@
   align-items: center;
   flex-direction: row;
   gap: 10px;
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     to right,
     #000000 0%,
     #000000 25%,
-    #43225e 100%
-  );
-  padding: 10px 20px;
+    var(--color-purple-darker) 100%
+  ); */
+  padding: 10px 20px 6px 20px;
 
   text-align: center;
   text-transform: uppercase;
   transition: 0.5s;
   background-size: 200% auto;
-  color: var(--color-purple-light);
+  /* color: var(--color-purple-light); */
+  background-color: var(--color-purple-medium);
   /* box-shadow: 0 0 20px #eee; */
   border-radius: var(--border-radius);
-
   cursor: pointer;
 
   &:hover {
@@ -47,13 +47,12 @@
   .section__button_text {
     font-size: var(--font-size-text);
     font-weight: var(--font-weight-text);
-    color: var(--color-purple-light);
-    margin-left: 5px;
+    color: var(--color-purple-darker);
   }
 
   .section__button_icon {
     width: auto;
-    color: var(--color-purple-light);
+    color: var(--color-purple-darker);
   }
 }
 
@@ -67,10 +66,10 @@
 
   .hero__title {
     font-size: var(--font-size-titles);
-    color: var(--color-purple-light);
+    color: var(--font-color);
 
     .name {
-      color: var(--color-purple-dark);
+      color: var(--color-purple-medium);
     }
   }
 
@@ -134,10 +133,9 @@
         height: 100%;
         padding: 10px 12px;
         /* color: var(--color-green-dark); */
-        border: 1px solid var(--color-purple-light);
-        color: var(--color-purple-light);
-        /* background-color: var(--color-purple-light); */
-        background-color: transparent;
+        color: var(--color-purple-medium);
+        background-color: var(--color-purple-darker);
+        /* background-color: transparent; */
         border-radius: var(--border-radius);
       }
     }
@@ -194,10 +192,9 @@
 
         .project {
           padding: 10px 15px;
-          background-color: transparent;
-          border: 1px solid var(--color-purple-light);
+          background-color: var(--color-purple-darker);
           border-radius: var(--border-radius);
-          color: var(--color-purple-light);
+          color: var(--color-purple-medium);
 
           display: flex;
           flex-direction: row;

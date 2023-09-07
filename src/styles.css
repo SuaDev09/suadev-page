@@ -14,20 +14,20 @@
   --font-size-h2: 36px;
   --font-size-text: 16px;
   --font-size-buttons: 1.2rem;
-  --font-weight-buttons: 400;
+  --font-weight-buttons: 800;
   --font-weight-titles: 700;
   --font-weight-text: 500;
   --font-color-black: #070100;
-  --font-color-dark: #43225e;
+  --font-color-dark: rgb(15, 2, 22);
   --font-color: white;
   --border-radius: 5px;
   --color-green-dark: #435334;
   --color-green-light: #cedebd;
   --color-green-medium: #9eb384;
   --color-purple-light: #e9d5da;
-  --color-purple-medium: #827397;
+  --color-purple-medium: rgb(191, 90, 242);
   --color-purple-dark: #8e46d6;
-  --color-purple-darker: #43225e;
+  --color-purple-darker: rgb(15, 2, 22);
   --background-color: #fef7ff;
 }
 
