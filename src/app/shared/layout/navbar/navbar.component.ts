@@ -49,17 +49,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
           this.hiddenSidebar = false;
         }
       });
-
-    this.router.events
-      .pipe(
-        untilDestroyed(this),
-        filter((e) => e instanceof NavigationEnd)
-      )
-      .subscribe(() => {
-        if (this.sidenav.modal === false) {
-          this.sidenav.visible = false;
-        }
-      });
   }
 
   ngOnInit() {
