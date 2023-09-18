@@ -1,0 +1,180 @@
+<div class="content">
+  <section class="hero">
+    <h1 class="hero__title">
+      {{ H1_TITLE }}
+      <b class="name">Francisco Suarez.</b>
+    </h1>
+    <div class="hero__childs">
+      <div class="hero__content">
+        <p class="hero__content_description">{{ P_CONTENT }}</p>
+      </div>
+      <div class="hero__image">
+        <img src="{{ IMG_PROFILE }}" alt="Francisco Suarez" />
+      </div>
+    </div>
+  </section>
+
+  <section class="services">
+    <div class="services__general">
+      <h2 class="section__title">Services</h2>
+      <a class="section__button">
+        <p class="section__button_text">Get in touch</p>
+        <i class="section__button_icon pi pi-inbox"></i>
+      </a>
+    </div>
+
+    <div class="services__content">
+      <p class="services__content_description">
+        I am a full stack developer with a passion for building beautiful
+        websites and applications. I have been developing for over 5 years and
+        have experience in many different languages and frameworks. I love
+        learning new technologies and am always looking for my next challenge.
+      </p>
+      <div class="services__content_items">
+        <div
+          class="services__content_items__item"
+          *ngFor="let item of SERVICES_ITEMS"
+        >
+          <p>
+            {{ item }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects">
+    <div class="projects__general">
+      <h2 class="section__title">Projects</h2>
+      <a class="section__button">
+        <p class="section__button_text">Get in touch</p>
+        <i class="section__button_icon pi pi-inbox"></i>
+      </a>
+    </div>
+
+    <p-tabView class="project__tab">
+      <p-tabPanel header="Header I">
+        <div class="project">
+          <img
+            class="project__img"
+            src="../../assets/imgs/descarga.jpg"
+            alt=""
+          />
+          <div class="project__description">
+            <p class="project__description__text">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo
+            </p>
+          </div>
+        </div>
+
+        <div class="project">
+          <img
+            class="project__img"
+            src="../../assets/imgs/descarga.jpg"
+            alt=""
+          />
+          <div class="project__description">
+            <p class="project__description__text">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo
+            </p>
+          </div>
+        </div>
+
+        <div class="project">
+          <img
+            class="project__img"
+            src="../../assets/imgs/descarga.jpg"
+            alt=""
+          />
+          <div class="project__description">
+            <p class="project__description__text">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo
+            </p>
+          </div>
+        </div>
+
+        <div class="project">
+          <img
+            class="project__img"
+            src="../../assets/imgs/descarga.jpg"
+            alt=""
+          />
+          <div class="project__description">
+            <p class="project__description__text">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo
+            </p>
+          </div>
+        </div>
+
+        <div class="project">
+          <img
+            class="project__img"
+            src="../../assets/imgs/descarga.jpg"
+            alt=""
+          />
+          <div class="project__description">
+            <p class="project__description__text">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo
+            </p>
+          </div>
+        </div>
+
+        <div class="project">
+          <img
+            class="project__img"
+            src="../../assets/imgs/descarga.jpg"
+            alt=""
+          />
+          <div class="project__description">
+            <p class="project__description__text">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo
+            </p>
+          </div>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Header II">
+        <p>
+          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
+          ab illo inventore veritatis et quasi architecto beatae vitae dicta
+          sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
+          aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
+          qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit,
+          sed quia non numquam eius modi.
+        </p>
+      </p-tabPanel>
+      <p-tabPanel header="Header III">
+        <p>
+          At vero eos et accusamus et iusto odio dignissimos ducimus qui
+          blanditiis praesentium voluptatum deleniti atque corrupti quos dolores
+          et quas molestias excepturi sint occaecati cupiditate non provident,
+          similique sunt in culpa qui officia deserunt mollitia animi, id est
+          laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
+          distinctio. Nam libero tempore, cum soluta nobis est eligendi optio
+          cumque nihil impedit quo minus.
+        </p>
+      </p-tabPanel>
+    </p-tabView>
+  </section>
+
+  <section class="timeline"></section>
+  <!-- <section class="popular"></section> -->
+</div>

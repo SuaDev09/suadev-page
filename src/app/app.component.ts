@@ -3,10 +3,15 @@ import { Component, OnInit } from '@angular/core';
 
 // PrimeNG Imports
 import { PrimeNGConfig } from 'primeng/api';
+import { RouterOutlet } from '@angular/router';
+import { FooterComponent } from './shared/layout/footer/footer.component';
+import { NavbarComponent } from './shared/layout/navbar/navbar.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
+  standalone: true,
+  imports: [RouterOutlet, FooterComponent, NavbarComponent],
 })
 export class AppComponent implements OnInit {
   title = 'suadev-page';
