@@ -14,13 +14,13 @@ export class ProjectsService {
   updateProjects(projects: Projects[]) {
     projects = [
       {
-        type: 'Angular',
+        type: 'ANGULAR',
         projects: [
           {
             id: 1,
             name: 'suadev-page',
             description: 'This is the page you are looking at right now.',
-            img: '../../../assets/imgs/descarga.jpg',
+            img: 'assets/imgs/descarga.jpg',
             link: '',
             type: 'Angular',
             tags: ['Angular', 'PrimeNG', 'HTML', 'CSS'],
@@ -29,7 +29,30 @@ export class ProjectsService {
             id: 2,
             name: 'suadev-page',
             description: 'This is the page you are looking at right now.',
-            img: '../../../assets/imgs/descarga.jpg',
+            img: 'assets/imgs/descarga.jpg',
+            link: '',
+            type: 'Angular',
+            tags: ['Angular', 'PrimeNG', 'HTML', 'CSS'],
+          },
+        ],
+      },
+      {
+        type: 'ANGULAR',
+        projects: [
+          {
+            id: 1,
+            name: 'suadev-page',
+            description: 'This is the page you are looking at right now.',
+            img: 'assets/imgs/descarga.jpg',
+            link: '',
+            type: 'Angular',
+            tags: ['Angular', 'PrimeNG', 'HTML', 'CSS'],
+          },
+          {
+            id: 2,
+            name: 'suadev-page',
+            description: 'This is the page you are looking at right now.',
+            img: 'assets/imgs/descarga.jpg',
             link: '',
             type: 'Angular',
             tags: ['Angular', 'PrimeNG', 'HTML', 'CSS'],

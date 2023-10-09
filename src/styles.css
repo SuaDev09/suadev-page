@@ -38,6 +38,7 @@
   width: 100%;
   font-family: var(--font-family);
   font-weight: var(--font-weight-text);
+  color: var(--font-color);
 }
 
 html {

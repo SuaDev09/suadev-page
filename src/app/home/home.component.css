@@ -176,37 +176,87 @@
     .p-tabview-nav li a {
       background-color: transparent;
     }
+  }
+}
 
-    .p-tabview-panels {
-      background-color: transparent;
-      padding: 0;
+.project__panel {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
 
-      .p-tabview-panel[aria-hidden="false"] {
-        background-color: transparent;
-        border: none;
-        padding: 0;
+:host ::ng-deep .p-tabview .p-tabview-panels {
+  background: none;
+  padding: 0;
+  margin-top: 10px;
+  border: 0 none;
+}
 
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
+:host ::ng-deep .p-tabview .p-tabview-nav {
+  background: none;
+  border: none;
+  border-width: 0 0 2px 0;
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
 
-        .project {
-          padding: 10px 15px;
-          background-color: var(--color-purple-darker);
-          border-radius: var(--border-radius);
-          color: var(--color-purple-medium);
+:host ::ng-deep .p-tabview .p-tabview-nav li {
+  max-width: 200px;
+  width: auto;
+  font-size: 0.75rem;
+  color: black;
+}
 
-          display: flex;
-          flex-direction: row;
-          gap: 10px;
-          justify-content: space-between;
-          .project__img {
-            width: 190px;
-            height: 108px;
-            aspect-ratio: auto 700 / 700;
-          }
-        }
-      }
-    }
+:host ::ng-deep .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+  border-radius: 0 !important;
+  background: none;
+  padding: 12px 24px;
+  border: none;
+  margin: 0;
+}
+
+:host ::ng-deep .p-tabview .p-tabview-nav li:hover {
+  border-radius: 0 !important;
+  background: none;
+}
+
+:host ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  border-radius: var(--border-radius) !important;
+  background: var(--color-purple-dark);
+}
+
+:host ::ng-deep .p-tabview-title {
+  color: var(--font-color);
+}
+
+.p-tabview-panel[aria-hidden="false"] {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.project {
+  padding: 10px 15px;
+  background-color: var(--color-purple-darker);
+  border-radius: var(--border-radius);
+  color: var(--color-purple-medium);
+
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: space-between;
+
+  .project__img {
+    width: 190px;
+    height: 108px;
+    aspect-ratio: auto 700 / 700;
   }
 }

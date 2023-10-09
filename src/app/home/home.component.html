@@ -9,7 +9,7 @@
         <p class="hero__content_description">{{ P_CONTENT }}</p>
       </div>
       <div class="hero__image">
-        <img src="{{ IMG_PROFILE }}" alt="Francisco Suarez" />
+        <img [src]="IMG_PROFILE" alt="Francisco Suarez" />
       </div>
     </div>
   </section>
@@ -54,11 +54,12 @@
 
     <p-tabView class="project__tab">
       <p-tabPanel
+        class="project__panel"
         *ngFor="let projects of (projects$ | async)!"
         header="{{ projects.type }}"
       >
         <div class="project" *ngFor="let project of projects.projects">
-          <img class="project__img" src="{{ project.img }}" alt="" />
+          <img class="project__img" [src]="project.img" alt="" />
           <div class="project__description">
             <p class="project__description__text">
               {{ project.description }}

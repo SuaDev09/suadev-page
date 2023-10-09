@@ -23,7 +23,7 @@ import { Observable } from 'rxjs';
 export class HomeComponent implements OnInit {
   H1_TITLE = H1_TITLE;
   P_CONTENT = P_CONTENT;
-  IMG_PROFILE = '../.././assets/icons/2.svg';
+  IMG_PROFILE = 'assets/icons/2.svg';
   SERVICES_ITEMS = SERVICES_ITEMS;
   projects$: Observable<Projects[]> = new Observable<Projects[]>();
   constructor(private _projects: ProjectsService) {}
@@ -31,6 +31,8 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this._projects.updateProjects([]);
     this.projects$ = this._projects.currentProjects$;
-    console.log(this.projects$);
+    this.projects$.subscribe((projects) => {
+      console.log(projects);
+    });
   }
 }
