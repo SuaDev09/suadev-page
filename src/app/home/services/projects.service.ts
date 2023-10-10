@@ -37,12 +37,13 @@ export class ProjectsService {
         ],
       },
       {
-        type: 'ANGULAR',
+        type: 'REACT',
         projects: [
           {
             id: 1,
             name: 'suadev-page',
-            description: 'This is the page you are looking at right now.',
+            description:
+              'This is the page you are looking at right now. dsfasdfasdfad',
             img: 'assets/imgs/descarga.jpg',
             link: '',
             type: 'Angular',
@@ -51,7 +52,8 @@ export class ProjectsService {
           {
             id: 2,
             name: 'suadev-page',
-            description: 'This is the page you are looking at right now.',
+            description:
+              'This is the page you are looking at rigasdfasdfasdfht now.',
             img: 'assets/imgs/descarga.jpg',
             link: '',
             type: 'Angular',
