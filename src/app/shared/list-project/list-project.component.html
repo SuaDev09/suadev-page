@@ -1,0 +1,20 @@
+<p-tabView class="project__tab">
+  <p-tabPanel
+    class="project__panel"
+    *ngFor="let projects of (projects$ | async)!"
+    header="{{ projects.type }}"
+    (click)="activatePanel(10)"
+  >
+    <div class="project" *ngFor="let project of projects.projects">
+      <img class="project__img" [src]="project.img" alt="" />
+      <div class="project__description">
+        <span class="project__description__title">
+          {{ project.name }}
+        </span>
+        <p class="project__description__text">
+          {{ project.description }}
+        </p>
+      </div>
+    </div>
+  </p-tabPanel>
+</p-tabView>

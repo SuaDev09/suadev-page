@@ -52,66 +52,19 @@
       </a>
     </div>
 
-    <p-tabView class="project__tab">
-      <p-tabPanel
-        class="project__panel"
-        *ngFor="let projects of (projects$ | async)!"
-        header="{{ projects.type }}"
-        (click)="activatePanel(10)"
-      >
-        <div class="project" *ngFor="let project of projects.projects">
-          <img class="project__img" [src]="project.img" alt="" />
-          <div class="project__description">
-            <span class="project__description__title">
-              {{ project.name }}
-            </span>
-            <p class="project__description__text">
-              {{ project.description }}
-            </p>
-          </div>
-        </div>
-      </p-tabPanel>
-    </p-tabView>
+    <list-project />
   </section>
 
   <section class="timeline">
-    <div class="card">
-      <p-timeline
-        [value]="events"
-        align="alternate"
-        styleClass="customized-timeline"
-      >
-        <ng-template pTemplate="marker" let-event>
-          <span
-            class="custom-marker shadow-2"
-            [style.backgroundColor]="event.color"
-          >
-            <i [ngClass]="event.icon"></i>
-          </span>
-        </ng-template>
-        <ng-template pTemplate="content" let-event>
-          <p-card [header]="event.status" [subheader]="event.date">
-            <img
-              *ngIf="event.image"
-              [src]="
-                'https://primefaces.org/cdn/primeng/images/demo/product/' +
-                event.image
-              "
-              [alt]="event.name"
-              width="200"
-              class="shadow-2"
-            />
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Inventore sed consequuntur error repudiandae numquam deserunt
-              quisquam repellat libero asperiores earum nam nobis, culpa ratione
-              quam perferendis esse, cupiditate neque quas!
-            </p>
-            <button pButton label="Read more" class="p-button-text"></button>
-          </p-card>
-        </ng-template>
-      </p-timeline>
+    <div class="projects__general">
+      <h2 class="section__title">Timeline</h2>
+      <a class="section__button">
+        <p class="section__button_text">Get in touch</p>
+        <i class="section__button_icon pi pi-inbox"></i>
+      </a>
     </div>
+    <app-timeline />
   </section>
+
   <!-- <section class="popular"></section> -->
 </div>

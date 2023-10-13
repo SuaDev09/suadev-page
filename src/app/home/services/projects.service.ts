@@ -12,6 +12,7 @@ export class ProjectsService {
   constructor() {}
 
   updateProjects(projects: Projects[]) {
+    console.log('upgrading projects');
     projects = [
       {
         type: 'ANGULAR',
