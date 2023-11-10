@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <script src="https://unpkg.com/gojs@2.3.11/release/go.js"></script>
+    <p>
+      This is a minimalist HTML and JavaScript skeleton of the GoJS Sample
+      <a href="https://gojs.net/latest/samples/productionEditor.html"
+        >productionEditor.html</a
+      >. It was automatically generated from a button on the sample page, and
+      does not contain the full HTML. It is intended as a starting point to
+      adapt for your own usage. For many samples, you may need to inspect the
+      <a
+        href="https://github.com/NorthwoodsSoftware/GoJS/blob/master/samples/productionEditor.html"
+        >full source on Github</a
+      >
+      and copy other files or scripts.
+    </p>
+    <div id="allSampleContent" class="p-4 w-full">
+      <link
+        href="https://fonts.googleapis.com/css?family=Lato:400,700"
+        rel="stylesheet"
+        type="text/css"
+      />
+      <link
+        rel="stylesheet"
+        href="https://unpkg.com/gojs@2.3.11/extensions/DataInspector.css"
+      />
+      <script src="https://unpkg.com/gojs@2.3.11/extensions/DataInspector.js"></script>
+      <link rel="stylesheet" href="style.css" />
+      <script id="code">
+        var Colors = {
+          red: "#be4b15",
+          green: "#52ce60",
+          blue: "#6ea5f8",
+          lightred: "#fd8852",
+          lightblue: "#afd4fe",
+          lightgreen: "#b9e986",
+          pink: "#faadc1",
+          purple: "#d689ff",
+          orange: "#f08c00",
+        };
+
+        var SpotNames = [
+          "Top",
+          "Left",
+          "Right",
+          "Bottom",
+          "TopSide",
+          "LeftSide",
+          "RightSide",
+          "BottomSide",
+        ];
+
+        var IP_SENSORS = [
+          "123.231.232.232",
+          "123.232.42.32",
+          "213.123.123.1",
+          "12.322.32.1",
+        ];
+
+        // Icons derived from SVG paths designed by freepik: http://www.freepik.com/
+        var Icons = {};
+        Icons.chiller = "chiller";
+
+        Icons.pump = "pump";
+
+        Icons.return = "return";
+
+        Icons.tower = "tower";
+
+        Icons.valve = "valve";
+
+        Icons.valve = "valve";
+
+        Icons.tower = "tower";
+
+        // a conversion function for translating general color names to specific colors
+        function colorFunc(colorname) {
+          var c = Colors[colorname];
+          if (c) return c;
+          return "gray";
+        }
+
+        // A data binding conversion function. Given a name, return the Geometry.
+        // If there is only a string, replace it with a Geometry object, which can be shared by multiple Shapes.
+        function geoFunc(geoname) {
+          var geo = Icons[geoname];
+          if (typeof geo === "string") {
+            geo = Icons[geoname] = go.Geometry.parse(geo, true);
+          }
+          return geo;
+        }
+
+        function init() {
+          // Abstract colors
+
+          var ColorNames = [];
+          for (var n in Colors) ColorNames.push(n);
+
+          var IconNames = [];
+          for (var n in Icons) IconNames.push(n);
+
+          // Since 2.2 you can also author concise templates with method chaining instead of GraphObject.make
+          // For details, see https://gojs.net/latest/intro/buildingObjects.html
+          const $ = go.GraphObject.make; // for conciseness in defining templates
+          myDiagram = new go.Diagram(
+            "myDiagramDiv", // create a Diagram for the DIV HTML element
+            {
+              initialAutoScale: go.Diagram.Uniform, // scale to show all of the contents
+              ChangedSelection: onSelectionChanged, // view additional information
+              "commandHandler.archetypeGroupData": {
+                isGroup: true,
+                text: "Group",
+                horiz: false,
+              },
+              "draggingTool.gridSnapCellSize": new go.Size(10, 1),
+              "draggingTool.isGridSnapEnabled": true,
+              "undoManager.isEnabled": true,
+              mouseDrop: (e) => finishDrop(e, null),
+
+              ModelChanged: (e) => {
+                // just for demonstration purposes,
+                if (e.isTransactionFinished) {
+                  // show the model data in the page's TextArea
+                  document.getElementById("mySavedModel").textContent =
+                    e.model.toJson();
+                }
+              },
+            }
+          );
+
+          myDiagram.groupTemplate = new go.Group("Auto", {
+            background: "blue",
+            ungroupable: true,
+            // highlight when dragging into the Group
+            mouseDragEnter: (e, grp, prev) => highlightGroup(e, grp, true),
+            mouseDragLeave: (e, grp, next) => highlightGroup(e, grp, false),
+            computesBoundsAfterDrag: true,
+            computesBoundsIncludingLocation: true,
+            // when the selection is dropped into a Group, add the selected Parts into that Group;
+            // if it fails, cancel the tool, rolling back any changes
+            mouseDrop: finishDrop,
+            handlesDragDropForMembers: true, // don't need to define handlers on member Nodes and Links
+            // Groups containing Groups lay out their members horizontally
+            layout: makeLayout(false),
+          })
+            .bind("layout", "horiz", makeLayout)
+            .bind(
+              new go.Binding("background", "isHighlighted", (h) =>
+                h ? "rgba(255,0,0,0.2)" : "transparent"
+              ).ofObject()
+            )
+            .add(
+              new go.Shape("Rectangle", {
+                fill: null,
+                stroke: defaultColor(false),
+                fill: defaultColor(false),
+                strokeWidth: 2,
+              })
+                .bind("stroke", "horiz", defaultColor)
+                .bind("fill", "horiz", defaultColor)
+            )
+            .add(
+              new go.Panel("Vertical") // title above Placeholder
+                .add(
+                  new go.Panel(
+                    "Horizontal", // button next to TextBlock
+                    {
+                      stretch: go.GraphObject.Horizontal,
+                      background: defaultColor(false),
+                    }
+                  )
+                    .bind("background", "horiz", defaultColor)
+                    .add(
+                      go.GraphObject.make("SubGraphExpanderButton", {
+                        alignment: go.Spot.Right,
+                        margin: 5,
+                      })
+                    )
+                    .add(
+                      new go.TextBlock({
+                        alignment: go.Spot.Left,
+                        editable: true,
+                        margin: 5,
+                        font: defaultFont(false),
+                        opacity: 0.95, // allow some color to show through
+                        stroke: "#404040",
+                      })
+                        .bind("font", "horiz", defaultFont)
+                        .bind("text", "text", null, null)
+                    ) // `null` as the fourth argument makes this a two-way binding
+                ) // end Horizontal Panel
+                .add(
+                  new go.Placeholder({ padding: 5, alignment: go.Spot.TopLeft })
+                )
+            ); // end Vertical Panel
+          plantTemplate = $(
+            go.Node,
+            "Spot",
+            {
+              locationObjectName: "PORT",
+              locationSpot: go.Spot.Top, // location point is the middle top of the PORT
+              linkConnected: updatePortHeight,
+              linkDisconnected: updatePortHeight,
+              toolTip: $(
+                "ToolTip",
+                $(
+                  go.TextBlock,
+                  { margin: 4, width: 140 },
+                  new go.Binding(
+                    "text",
+                    "",
+                    (data) => data.text + ":\n\n" + data.description
+                  )
+                )
+              ),
+            },
+            new go.Binding("location", "pos", go.Point.parse).makeTwoWay(
+              go.Point.stringify
+            ),
+            // The main element of the Spot panel is a vertical panel housing an optional icon,
+            // plus a rectangle that acts as the port
+            $(
+              go.Panel,
+              "Vertical",
+              $(
+                go.Picture, // Utiliza go.Picture para mostrar una imagen
+                {
+                  width: 40,
+                  height: 40, // Establece el ancho y alto según tus necesidades
+                },
+                new go.Binding(
+                  "source",
+                  "icon",
+                  (icon) => `assets/imgs/chillers/${icon}.png`
+                ) // Asigna la ruta de la imagen PNG desde los datos
+                // new go.Binding('fill', 'color', this._colorFunc), // Mantén la vinculación de datos para el color
+                // new go.Binding('geometry', 'icon', this._geoFunc) // Mantén la vinculación de datos para la geometría (si es necesario)
+              ),
+              $(
+                go.Shape,
+                {
+                  name: "PORT",
+                  width: 0,
+                  height: 0,
+                  margin: new go.Margin(-1, 0, 0, 0),
+                  stroke: null,
+                  strokeWidth: 0,
+                  fill: "gray",
+                  portId: "",
+                  fromLinkable: true,
+                  toLinkable: true,
+                },
+                new go.Binding("fill", "color", colorFunc)
+              ),
+              $(
+                go.TextBlock,
+                {
+                  font: "Bold 14px Lato, sans-serif",
+                  textAlign: "center",
+                  margin: 3,
+                  maxSize: new go.Size(100, NaN),
+                  alignment: go.Spot.Top,
+                  alignmentFocus: go.Spot.Bottom,
+                  editable: true,
+                },
+                new go.Binding("text").makeTwoWay()
+              )
+            )
+          );
+
+          groupNodeTemplate = $(go.Node, "Auto", {
+            // dropping on a Node is the same as dropping on its containing Group, even if it's top-level
+            mouseDrop: (e, node) => finishDrop(e, node.containingGroup),
+          })
+            .add(
+              new go.Shape("RoundedRectangle", {
+                fill: "rgba(172, 230, 0, 0.9)",
+                stroke: "white",
+                strokeWidth: 0.5,
+              })
+            )
+            .add(
+              new go.TextBlock({
+                margin: 7,
+                editable: true,
+                font: "bold 13px sans-serif",
+                opacity: 0.9,
+              }).bind("text", "text", null, null)
+            );
+
+          myDiagram.linkTemplate = $(
+            go.Link,
+            {
+              layerName: "Background",
+              routing: go.Link.Orthogonal,
+              corner: 15,
+              reshapable: true,
+              resegmentable: true,
+              fromSpot: go.Spot.RightSide,
+              toSpot: go.Spot.LeftSide,
+            },
+            // make sure links come in from the proper direction and go out appropriately
+            new go.Binding("fromSpot", "fromSpot", go.Spot.parse),
+            new go.Binding("toSpot", "toSpot", go.Spot.parse),
+            new go.Binding("points").makeTwoWay(),
+            // mark each Shape to get the link geometry with isPanelMain: true
+            $(
+              go.Shape,
+              { isPanelMain: true, stroke: "gray", strokeWidth: 10 },
+              // get the default stroke color from the fromNode
+              new go.Binding("stroke", "fromNode", (n) =>
+                go.Brush.lighten((n && Colors[n.data.color]) || "gray")
+              ).ofObject(),
+              // but use the link's data.color if it is set
+              new go.Binding("stroke", "color", colorFunc)
+            ),
+            $(go.Shape, {
+              isPanelMain: true,
+              stroke: "white",
+              strokeWidth: 3,
+              name: "PIPE",
+              strokeDashArray: [20, 40],
+            })
+          );
+
+          const templateMap = new go.Map();
+
+          templateMap.add("plant", plantTemplate);
+          templateMap.add("groups", groupNodeTemplate);
+
+          myDiagram.nodeTemplateMap = templateMap;
+
+          myDiagram.model = go.Model.fromJson(
+            document.getElementById("mySavedModel").textContent
+          );
+
+          // show a collection of node types that the designer may drag into the main diagram
+          myPalette = new go.Palette("myPaletteDiv", {
+            layout: $(go.GridLayout, { cellSize: new go.Size(1, 1) }),
+            initialContentAlignment: go.Spot.TopLeft,
+            initialScale: 0.8,
+            nodeTemplate: plantTemplate, // shared with the main Diagram
+            model: new go.GraphLinksModel({
+              nodeDataArray: [
+                { category: "plant", icon: "chiller", text: "Chiller" },
+                { category: "plant", icon: "pump", text: "Pump" },
+                { category: "plant", icon: "valve", text: "Valve" },
+                { category: "plant", icon: "tower", text: "Tower" },
+                { category: "plant", icon: "return", text: "Return" },
+                { category: "plant", icon: "valve", text: "Valve" },
+                { category: "plant", text: "Intermediates" },
+                { category: "plant", icon: "tower", text: "Tower" },
+              ], // end nodeDataArray
+            }), // end model
+          }); // end Palette
+
+          myPalette.nodeTemplateMap.add("plant", plantTemplate);
+
+          // show and let the designer edit some data properties of the selected node or link
+          myInspector = new Inspector("myInspector", myDiagram, {
+            properties: {
+              key: { show: false },
+              pos: { show: false },
+              icon: {
+                show: Inspector.showIfNode,
+                type: "select",
+                choices: IconNames,
+              },
+              ipSensor: {
+                show: Inspector.showIfNode,
+                type: "select",
+                choices: IP_SENSORS,
+              },
+              color: { type: "select", choices: ColorNames },
+              text: { show: Inspector.showIfNode },
+              caption: { show: Inspector.showIfNode },
+              imgsrc: { show: Inspector.showIfNode },
+              from: { show: false },
+              to: { show: false },
+              points: { show: false },
+              fromSpot: {
+                show: Inspector.showIfLink,
+                type: "select",
+                choices: SpotNames,
+              },
+              toSpot: {
+                show: Inspector.showIfLink,
+                type: "select",
+                choices: SpotNames,
+              },
+            },
+            propertyModified: onSelectionChanged,
+          });
+
+          tablePalette = new go.Palette("tablePalette", {
+            groupTemplateMap: myDiagram.groupTemplateMap,
+          });
+
+          tablePalette.nodeTemplateMap.add(
+            "groupPaletteTemplate",
+            groupNodeTemplate
+          ); // `null` as the fourth argument makes this a two-way binding
+
+          tablePalette.model = new go.GraphLinksModel([
+            {
+              key: "node1",
+              category: "groupPaletteTemplate",
+              isGroup: false,
+              text: "New Value",
+              color: "#ACE600",
+            },
+            { isGroup: true, text: "H Group", horiz: true },
+            { isGroup: true, text: "V Group", horiz: false },
+          ]);
+
+          var slider = document.getElementById("levelSlider");
+          slider.addEventListener("change", reexpand);
+          slider.addEventListener("input", reexpand);
+
+          load();
+        }
+
+        function updatePortHeight(node, link, port) {
+          var sideinputs = 0;
+          var sideoutputs = 0;
+          node.findLinksConnected().each((l) => {
+            if (l.toNode === node && l.toSpot === go.Spot.LeftSide)
+              sideinputs++;
+            if (l.fromNode === node && l.fromSpot === go.Spot.RightSide)
+              sideoutputs++;
+          });
+          var tot = Math.max(sideinputs, sideoutputs);
+          tot = Math.max(1, Math.min(tot, 2));
+          port.height = tot * (10 + 2) + 2; // where 10 is the link path's strokeWidth
+        }
+
+        // Upon a drop onto a Group, we try to add the selection as members of the Group.
+        // Upon a drop onto the background, or onto a top-level Node, make selection top-level.
+        // If this is OK, we're done; otherwise we cancel the operation to rollback everything.
+        function finishDrop(e, grp) {
+          var ok =
+            grp !== null
+              ? grp.addMembers(grp.diagram.selection, true)
+              : e.diagram.commandHandler.addTopLevelParts(
+                  e.diagram.selection,
+                  true
+                );
+          if (!ok) e.diagram.currentTool.doCancel();
+        }
+
+        // this function is used to highlight a Group that the selection may be dropped into
+        function highlightGroup(e, grp, show) {
+          if (!grp) return;
+          e.handled = true;
+          if (show) {
+            // cannot depend on the grp.diagram.selection in the case of external drag-and-drops;
+            // instead depend on the DraggingTool.draggedParts or .copiedParts
+            var tool = grp.diagram.toolManager.draggingTool;
+            var map = tool.draggedParts || tool.copiedParts; // this is a Map
+            // now we can check to see if the Group will accept membership of the dragged Parts
+            if (grp.canAddMembers(map.toKeySet())) {
+              grp.isHighlighted = true;
+              return;
+            }
+          }
+          grp.isHighlighted = false;
+        }
+
+        function defaultFont(horiz) {
+          // a Binding conversion function
+          return horiz ? "bold 20px sans-serif" : "bold 16px sans-serif";
+        }
+
+        function defaultColor(horiz) {
+          // a Binding conversion function
+          return horiz ? "rgba(255, 221, 51, 0.55)" : "rgba(51,211,229, 0.5)";
+        }
+
+        // The one template for Groups can be configured to be either layout out its members
+        // horizontally or vertically, each with a different default color.
+
+        function makeLayout(horiz) {
+          // a Binding conversion function
+          if (horiz) {
+            return new go.GridLayout({
+              wrappingWidth: Infinity,
+              alignment: go.GridLayout.Position,
+              cellSize: new go.Size(1, 1),
+              spacing: new go.Size(4, 4),
+            });
+          } else {
+            return new go.GridLayout({
+              wrappingColumn: 1,
+              alignment: go.GridLayout.Position,
+              cellSize: new go.Size(1, 1),
+              spacing: new go.Size(4, 4),
+            });
+          }
+        }
+
+        function onSelectionChanged() {
+          var node = myDiagram.selection.first();
+          if (!(node instanceof go.Node)) return;
+          var data = node.data;
+          var image = document.getElementById("Image");
+          var title = document.getElementById("Title");
+          var description = document.getElementById("Description");
+
+          if (data.imgsrc) {
+            image.src = data.imgsrc;
+            image.alt = data.caption;
+          } else {
+            image.src = "";
+            image.alt = "";
+          }
+          title.textContent = data.text;
+          description.textContent = data.description;
+        }
+
+        // Metodos para generar los grupos
+        function reexpand(e) {
+          myDiagram.commit((diag) => {
+            var level = parseInt(document.getElementById("levelSlider").value);
+            diag.findTopLevelGroups().each((g) => expandGroups(g, 0, level));
+          }, "reexpand");
+        }
+        function expandGroups(g, i, level) {
+          if (!(g instanceof go.Group)) return;
+          g.isSubGraphExpanded = i < level;
+          g.memberParts.each((m) => expandGroups(m, i + 1, level));
+        }
+
+        function load() {
+          myDiagram.model = go.Model.fromJson(
+            document.getElementById("mySavedModel").value
+          );
+        }
+
+        window.addEventListener("DOMContentLoaded", init);
+      </script>
+
+      <div id="sample">
+        <div style="width: 100%">
+          <div
+            id="myPaletteDiv"
+            style="
+              border: 1px solid black;
+              width: 100%;
+              height: 100px;
+              background: whitesmoke;
+              position: relative;
+              -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+            "
+          >
+            <canvas
+              tabindex="0"
+              width="1054"
+              height="98"
+              style="
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                z-index: 2;
+                user-select: none;
+                touch-action: none;
+                width: 1054px;
+                height: 98px;
+              "
+            ></canvas>
+            <div
+              style="
+                position: absolute;
+                overflow: auto;
+                width: 1054px;
+                height: 98px;
+                z-index: 1;
+              "
+            >
+              <div style="position: absolute; width: 1px; height: 1px"></div>
+            </div>
+          </div>
+          <div
+            id="tablePalette"
+            style="
+              width: 430px;
+              height: 498px;
+              margin-right: 2px;
+              background-color: rgb(39, 29, 29);
+              border: 1px solid black;
+              position: relative;
+              -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+              cursor: auto;
+            "
+          >
+            <canvas
+              tabindex="0"
+              width="128"
+              height="498"
+              style="
+                position: absolute;
+
+                top: 0px;
+                left: 0px;
+                z-index: 2;
+                user-select: none;
+                touch-action: none;
+                width: 128px;
+                height: 498px;
+                cursor: auto;
+              "
+            ></canvas>
+            <div
+              style="
+                position: absolute;
+                overflow: auto;
+                width: 128px;
+                height: 498px;
+                z-index: 1;
+              "
+            >
+              <div style="position: absolute; width: 1px; height: 1px"></div>
+            </div>
+          </div>
+          <div
+            id="myDiagramDiv"
+            style="
+              border: 1px solid black;
+              width: 100%;
+              height: 550px;
+              display: inline-block;
+              vertical-align: top;
+              position: relative;
+              -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+              cursor: auto;
+            "
+          >
+            <canvas
+              tabindex="0"
+              width="1054"
+              height="548"
+              style="
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                z-index: 2;
+                user-select: none;
+                touch-action: none;
+                width: 1054px;
+                height: 548px;
+                cursor: auto;
+              "
+            ></canvas>
+            <div
+              style="
+                position: absolute;
+                overflow: auto;
+                width: 1054px;
+                height: 548px;
+                z-index: 1;
+              "
+            >
+              <div style="position: absolute; width: 1px; height: 1px"></div>
+            </div>
+          </div>
+          <div
+            id="infobox"
+            style="
+              display: inline-block;
+              vertical-align: top;
+              width: 256px;
+              background: #757575;
+              color: #fff;
+              padding: 20px;
+            "
+          >
+            <img id="Image" width="216" alt="" src="" />
+            <h3 id="Title"></h3>
+            <p id="Description">Select a node to see more information.</p>
+          </div>
+          <div id="myInspector" class="inspector"></div>
+        </div>
+        <div>
+          <textarea id="mySavedModel" style="width: 800px; height: 400px">
+{ "class": "GraphLinksModel",
+  "nodeDataArray": [
+{"key":1,"category":"plant","pos":"-170 -48","icon":"chiller","color":"blue","text":"Gas\nCompanies","description":"Provides natural gas liquids (NGLs).","caption":"Gas Drilling Well","imgsrc":"https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/BarnettShaleDrilling-9323.jpg/256px-BarnettShaleDrilling-9323.jpg"},
+{"key":2,"category":"plant","pos":"-170 96","icon":"pump","color":"blue","text":"pump\nCompanies","description":"Provides associated petroleum gas (APG). This type of gas used to be released as waste from pump drilling, but is now commonly captured for processing.","caption":"Offshore pump well","imgsrc":"https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/pump_platform_P-51_%28Brazil%29.jpg/512px-pump_platform_P-51_%28Brazil%29.jpg"},
+{"key":3,"category":"plant","pos":"-70 90","icon":"valve","color":"blue","text":"Gas Processing","description":"APG processing turns associated petrolium gas into natural gas liquids (NGLs) and stable natural gas (SGN).","caption":"Natural gas plant","imgsrc":"https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Solohiv_natural_gas_plant_-_fragment.jpg/256px-Solohiv_natural_gas_plant_-_fragment.jpg"},
+{"key":4,"category":"plant","pos":"40 -50","icon":"tower","color":"blue","text":"Gas tower","description":"Natural gas liquids are separated into individual hydrocarbons like propane and butanes, hydrocarbon mixtures (naphtha) and liquefied petroleum gases (LPGs).","caption":"Gas Plant","imgsrc":"https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Gasblok.jpg/256px-Gasblok.jpg"},
+{"key":5,"category":"plant","pos":"140 -50","icon":"return","color":"orange","text":"return (Cracking)","description":"Liquefied petroleum gases (LPGs) are transformed into Ethylene, propylene, benzene, and other by-products.","caption":"return plant","imgsrc":"https://upload.wikimedia.org/wikipedia/commons/6/6c/Guelph.jpg"},
+{"key":6,"category":"plant","pos":"340 -130","icon":"valve","color":"red","text":"Basic Polymers","description":"Ethylene and propylene (monomers) are processed into end products using various methods (valve).","caption":"Plastics engineering-Polymer products","imgsrc":"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Plastics_engineering-Polymer_products.jpg/256px-Plastics_engineering-Polymer_products.jpg"},
+{"key":7,"category":"plant","pos":"340 -40","icon":"valve","color":"green","text":"Plastics","description":"valve produces PET, glycols, alcohols, expandable polystyrene, acrylates, BOPP-films and geosynthetics.","caption":"Lego Color Bricks","imgsrc":"https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Lego_Color_Bricks.jpg/256px-Lego_Color_Bricks.jpg"},
+{"key":8,"category":"plant","pos":"340 50","icon":"valve","color":"lightgreen","text":"Synthetic Rubbers","description":"valve produces commodity and specialty rubbers and thermoplastic elastomers.","caption":"Sheet of synthetic rubber coming off the rolling mill at the plant of Goodrich","imgsrc":"https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Sheet_of_synthetic_rubber_coming_off_the_rolling_mill_at_the_plant_of_Goodrich.jpg/512px-Sheet_of_synthetic_rubber_coming_off_the_rolling_mill_at_the_plant_of_Goodrich.jpg"},
+{"key":9,"category":"plant","pos":"340 120","color":"orange","text":"Intermediates","description":"Produced Ethylene, Propylene, Butenes, Benzene, and other by-products.","caption":"Propylene Containers","imgsrc":"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/XVJ-12_Propylene_%288662385917%29.jpg/256px-XVJ-12_Propylene_%288662385917%29.jpg"},
+{"key":10,"category":"plant","pos":"340 210","icon":"tower","color":"blue","text":"LPG, Naphtha,\nMTBE","description":"Propane, butane, and other general purpose fuels and byproducts.","caption":"Liquid Petroleum Gas Truck","imgsrc":"https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/LPG_Truck.jpg/256px-LPG_Truck.jpg"},
+{"key":11,"category":"plant","pos":"340 300","icon":"tower","color":"blue","text":"Natural Gas, NGLs","description":"Used for heating, cooking, and electricity generation","caption":"Natural Gas Flame","imgsrc":"https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/%22LPG_flame%22.JPG/512px-%22LPG_flame%22.JPG"},
+{"key":12, "isGroup":true, "text":"Main 1", "horiz":true, "category": "plant"},
+{"key":13,"category":"groups", "isGroup":true, "text":"Main 2", "horiz":true},
+{"key":14,"category":"groups", "isGroup":true, "text":"Group A", "group":1},
+{"key":15,"category":"groups", "isGroup":true, "text":"Group B", "group":1},
+{"key":16,"category":"groups", "isGroup":true, "text":"Group C", "group":2},
+{"key":17,"category":"groups", "isGroup":true, "text":"Group D", "group":2},
+{"key":18,"category":"groups", "isGroup":true, "text":"Group E", "group":6},
+{"text":"first A", "category":"groups","isGroup":false,"group":1, "key":-7},
+{"text":"second A","category":"groups","isGroup":false, "group":1, "key":-8},
+{"text":"first B", "category":"groups","isGroup":false,"group":2, "key":-9},
+{"text":"second B","category":"groups","isGroup":false, "group":2, "key":-10},
+{"text":"third B", "category":"groups","isGroup":false,"group":3, "key":-11},
+{"text":"first C", "category":"groups","isGroup":false,"group":3, "key":-12},
+{"text":"second C","category":"groups","isGroup":false, "group":3, "key":-13},
+{"text":"first D", "category":"groups","isGroup":false,"group":3, "key":-14},
+{"text":"first E", "category":"groups","isGroup":false,"group":3, "key":-15}
+
+],
+  "linkDataArray": [
+{"from":1,"to":4,"points":[-150,-41,-140,-41,-69,-41,-69,-41.33333333333333,2,-41.33333333333333,20,-41.33333333333333]},
+{"from":2,"to":3,"points":[-150,103,-140,103,-120,103,-120,103,-100,103,-90,103]},
+{"from":3,"to":4,"points":[-50,98.66666666666667,-40,98.66666666666667,-15,98.66666666666667,-15,-32.666666666666664,10,-32.666666666666664,20,-32.666666666666664]},
+{"from":3,"to":5,"toSpot":"BottomSide","points":[-50,107.33333333333333,-32,107.33333333333333,140,107.33333333333333,140,46.666666666666664,140,-14,140,-24]},
+{"from":4,"to":5,"points":[60,-37,70,-37,90,-37,90,-37,110,-37,120,-37]},
+{"from":3,"to":11,"fromSpot":"BottomSide","points":[-70,116,-70,126,-70,307,120,307,310,307,320,307]},
+{"from":4,"to":10,"fromSpot":"BottomSide","points":[40,-12,40,-2,40,217,175,217,310,217,320,217]},
+{"from":5,"to":6,"fromSpot":"Right","points":[160,-37,170,-37,240,-37,240,-123,310,-123,320,-123]},
+{"from":5,"to":7,"fromSpot":"Right","points":[160,-37,170,-37,240,-37,240,-33,310,-33,320,-33]},
+{"from":5,"to":8,"fromSpot":"Right","points":[160,-37,170,-37,240,-37,240,57,310,57,320,57]},
+{"from":5,"to":9,"fromSpot":"Right","points":[160,-37,170,-37,240,-37,240,127,310,127,320,127]}
+]}</textarea
+          >
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
