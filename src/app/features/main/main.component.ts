@@ -1,0 +1,13 @@
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { HeaderComponent } from '@app/shared/components/layout/header/header.component';
+import { SidebarComponent } from '@app/shared/components/layout/sidebar/sidebar.component';
+
+@Component({
+  selector: 'app-main',
+  standalone: true,
+  imports: [SidebarComponent, HeaderComponent, RouterOutlet],
+  templateUrl: './main.component.html',
+  styleUrl: './main.component.css',
+})
+export class MainComponent {}

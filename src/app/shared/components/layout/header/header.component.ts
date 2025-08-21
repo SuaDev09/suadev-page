@@ -39,7 +39,6 @@ export class HeaderComponent implements OnInit {
   private _currentThemeService = inject(CurrentThemeService);
   LOGO = '';
   fallbackUrl = 'assets/icons/account.png';
-  showNotificationPanel = false;
   showConfigPanel = false;
   notificationQty = 0;
 
@@ -55,14 +54,6 @@ export class HeaderComponent implements OnInit {
         this.LOGO = 'assets/icons/6.svg';
       }
     });
-  }
-
-  onNotificationPanelHide(value: boolean) {
-    this.showNotificationPanel = value;
-  }
-
-  toggleNotifications() {
-    this.showNotificationPanel = !this.showNotificationPanel;
   }
 
   imgError(event: any) {
