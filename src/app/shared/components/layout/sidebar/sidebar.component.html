@@ -1,0 +1,75 @@
+<div
+  class="sidebar-container"
+  [class.expanded]="hasExpanded"
+  [class.collapsed]="!hasExpanded"
+>
+  <p-menu
+    [style]="{
+      'margin-left': 'var(--gap-sm)',
+      width: hasExpanded ? '175px' : '60px',
+      transition: 'transform 0.25s ease-in-out, width 0.25s ease-in-out',
+      padding: 'var(--content-padding)'
+    }"
+    [model]="items"
+  >
+    <!-- Start Controls -->
+    <ng-template pTemplate="start">
+      <div class="start-controls">
+        <p-button
+          icon="pi pi-bars"
+          text="true"
+          *ngIf="!hasExpanded"
+          (onClick)="clooseSidebar()"
+        />
+        <div
+          *ngIf="hasExpanded"
+          class="button"
+          [style]="{
+            display: 'flex',
+            'flex-direction': 'row',
+            'justify-content': 'flex-end'
+          }"
+        >
+          <p-button
+            icon="pi pi-align-left"
+            severity="contrast"
+            rounded="true"
+            (onClick)="clooseSidebar()"
+          />
+        </div>
+        <p-button
+          [style]="{ 'min-width': '100%' }"
+          [label]="hasExpanded ? 'New Request' : ''"
+          icon="pi pi-plus"
+          [outlined]="true"
+          (onClick)="openNewRequestType()"
+        ></p-button>
+      </div>
+    </ng-template>
+
+    <!-- Submenu Header -->
+    <ng-template pTemplate="submenuheader" let-item>
+      <span
+        [style]="{ color: 'var(--primary-color)' }"
+        class="text-primary font-bold"
+        *ngIf="hasExpanded"
+      >
+        {{ item.label }}
+      </span>
+    </ng-template>
+
+    <!-- Menu Item -->
+    <ng-template pTemplate="item" let-item>
+      <a
+        class="item-sidebar p-menuitem-link"
+        [routerLink]="item.routerLink"
+        [routerLinkActive]="'is-active'"
+      >
+        <span [class]="item.icon"></span>
+        <span *ngIf="hasExpanded">{{ item.label }}</span>
+      </a>
+    </ng-template>
+
+    <!-- End Controls -->
+  </p-menu>
+</div>

@@ -1,41 +1,44 @@
-// Angular Imports
-import { Component, OnInit } from '@angular/core';
-
-// PrimeNG Imports
-import { PrimeNGConfig } from 'primeng/api';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { FooterComponent } from './shared/layout/footer/footer.component';
-import { NavbarComponent } from './shared/layout/navbar/navbar.component';
+import { Title } from '@angular/platform-browser';
+
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
+import { SidebarComponent } from './shared/components/layout/sidebar/sidebar.component';
+import { HeaderComponent } from './shared/components/layout/header/header.component';
+
+import { WindowService } from './shared/services/window/window.service';
+
+import { ENVIRONMENT } from '@env/environment';
+
 @Component({
   selector: 'app-root',
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    ToastModule,
+    HeaderComponent,
+    SidebarComponent,
+  ],
+  providers: [MessageService],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  standalone: true,
-  imports: [RouterOutlet, FooterComponent, NavbarComponent],
 })
 export class AppComponent implements OnInit {
-  title = 'suadev-page';
+  private _windowService = inject(WindowService);
+  private _titleService = inject(Title);
 
-  constructor(private primengConfig: PrimeNGConfig) {}
+  constructor() {
+    this._titleService.setTitle(ENVIRONMENT.APP_NAME);
+  }
 
-  ngOnInit() {
-    // Set the optional Ripple Effect for the PrimeNG components
-    this.primengConfig.ripple = true;
+  async ngOnInit(): Promise<void> {}
 
-    // Set the z-index for the PrimeNG components
-    this.primengConfig.zIndex = {
-      modal: 1100, // dialog, sidebar
-      overlay: 1000, // dropdown, overlaypanel
-      menu: 1000, // overlay menus
-      tooltip: 1100, // tooltip
-    };
-
-    // Set the translations for the dialog buttons
-    this.primengConfig.setTranslation({
-      accept: 'Accept',
-      reject: 'Cancel',
-
-      //translations
-    });
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this._windowService.updateWindowHeight(event.target.innerHeight);
   }
 }

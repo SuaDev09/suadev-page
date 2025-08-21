@@ -1,0 +1,84 @@
+.no-touch .scrollable.hover {
+  overflow-y: hidden;
+}
+
+.no-touch .scrollable.hover:hover {
+  overflow-y: auto;
+  overflow: visible;
+}
+
+nav {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.main-menu li:hover > a,
+nav.main-menu li.active > a,
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus,
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus,
+.no-touch .dashboard-page nav.dashboard-menu ul li:hover a,
+.dashboard-page nav.dashboard-menu ul li.active a,
+a.is-active,
+a.is-active.expanded {
+  .pi {
+    color: var(--primary-color-text);
+  }
+
+  color: var(--primary-color-text) !important;
+  background-color: var(--surface-900);
+  border-radius: 4px;
+}
+
+.classname {
+  display: none;
+  overflow: hidden;
+}
+
+.classname.expanded {
+  width: 275px; /* Ancho cuando está expandido */
+  overflow: auto;
+  display: block;
+  background-color: var(--bg-color-secondary);
+  padding: 10px;
+  transition: width 0.3s ease-in-out; /* Transición de la animación */
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+}
+
+.user-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: var(--gap-sm);
+  gap: var(--gap-sm);
+  .photo-container > img {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+  }
+  .user-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+}
+
+.item-sidebar {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: var(--gap-sm);
+}
+
+.start-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+}

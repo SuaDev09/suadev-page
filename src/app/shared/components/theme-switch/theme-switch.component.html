@@ -1,0 +1,12 @@
+<p-selectButton
+  [options]="themeOptions"
+  [(ngModel)]="themeSelected"
+  (ngModelChange)="toggleLightDark()"
+  optionLabel="icon"
+  optionValue="theme"
+  allowEmpty="false"
+>
+  <ng-template let-item pTemplate>
+    <i [class]="item.icon"></i>
+  </ng-template>
+</p-selectButton>

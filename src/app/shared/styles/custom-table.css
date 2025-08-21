@@ -1,0 +1,81 @@
+::ng-deep .p-datatable-table {
+  border-spacing: 0px 10px !important;
+}
+
+::ng-deep .p-datatable .p-datatable-header {
+  background: none;
+  border: none;
+}
+
+.header-table > th {
+  border: none;
+  border-radius: var(--border-radius);
+}
+
+/* Styles when the row data is expanded */
+.row-expanded-data {
+  > td {
+    font-weight: bold;
+    border: none;
+    transition: all 1s;
+    background: var(--surface-100);
+
+    &:first-child {
+      border-radius: var(--border-radius) 0 0 0;
+    }
+
+    &:last-child {
+      border-radius: 0 var(--border-radius) 0 0;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+      gap: var(--gap-sm);
+    }
+  }
+}
+
+.row-expanded {
+  > td {
+    transition: all 0.2s;
+
+    background: var(--surface-100);
+    border: none;
+    border-radius: var(--border-radius);
+  }
+}
+
+.row-data {
+  > td {
+    transition: all 0.2s;
+    border: none;
+    background: var(--surface-200);
+
+    &:first-child {
+      border-radius: var(--border-radius) 0 0 var(--border-radius);
+    }
+
+    &:last-child {
+      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+      gap: var(--gap-sm);
+    }
+  }
+}
+.row-data.p-highlight {
+  > td {
+    background: none;
+  }
+}
+::ng-deep .p-datatable .p-paginator-bottom {
+  border: none !important;
+}

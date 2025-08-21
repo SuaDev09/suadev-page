@@ -1,0 +1,28 @@
+::ng-deep
+  .p-panelmenu
+  .p-panelmenu-header
+  .p-panelmenu-header-content
+  .p-panelmenu-header-action {
+  color: var(--font-color-primary);
+  padding: 0.75rem;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+::ng-deep .p-panelmenu .p-panelmenu-panel {
+  margin-bottom: var(--gap-sm);
+}
+
+::ng-deep .p-panelmenu .p-panelmenu-header .p-panelmenu-header-content {
+  background: none;
+  border: none;
+}
+
+::ng-deep
+  .p-panelmenu
+  .p-panelmenu-header:not(.p-disabled).p-highlight
+  .p-panelmenu-header-content {
+  background-color: var(--bg-color-tertiary);
+  color: var(--font-color-primary);
+  border: 1px solid var(--border-color);
+}

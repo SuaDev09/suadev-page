@@ -1,0 +1,45 @@
+<header class="header">
+  <div class="header__title">
+    <p-image [src]="LOGO" width="64" height="32" />
+    <h2 class="header__title__title">Suadev</h2>
+  </div>
+  <header class="header__content">
+    <div class="theme-switch">
+      <app-theme-switch />
+    </div>
+    <div class="notifications-panel">
+      <p-button
+        [text]="true"
+        severity="secondary"
+        size="large"
+        (onClick)="showNotificationPanel = true"
+      >
+        <i
+          class="pi pi-bell"
+          style="font-size: 1.8rem"
+          pBadge
+          [value]="notificationQty"
+        ></i>
+      </p-button>
+      @if (showNotificationPanel) {
+        <ng-container *ngTemplateOutlet="notificationPanel" />
+      }
+    </div>
+  </header>
+</header>
+
+<ng-template #notificationPanel>
+  <p-sidebar
+    [(visible)]="showNotificationPanel"
+    position="right"
+    [baseZIndex]="1100"
+    [modal]="false"
+    [style]="{
+      width: '25vw',
+      height: '100%',
+      maxHeight: '100vh',
+      overflowY: 'auto'
+    }"
+  >
+  </p-sidebar>
+</ng-template>

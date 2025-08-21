@@ -1,7 +1,12 @@
 <main class="main-container">
-  <app-navbar></app-navbar>
-  <section class="content">
-    <router-outlet></router-outlet>
-  </section>
-  <app-footer></app-footer>
+  <div class="componentes">
+    <app-header></app-header>
+    <div class="content">
+      <app-sidebar></app-sidebar>
+      <div class="outlet">
+        <router-outlet> </router-outlet>
+      </div>
+    </div>
+  </div>
 </main>
+<p-toast [style]="{ 'margin-top': '45px' }" [life]="10000" />

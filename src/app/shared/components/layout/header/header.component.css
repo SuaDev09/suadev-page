@@ -1,0 +1,68 @@
+.header {
+  width: 100%;
+  height: var(--h-navbar-element);
+  padding: var(--padding);
+  background: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+
+  .header__title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--gap-sm);
+
+    .header__title__title {
+      /* color: var(--text-color); */
+    }
+  }
+
+  .header__content {
+    flex-grow: 1;
+    display: flex;
+    height: var(--h-navbar-element);
+
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: var(--gap-sm);
+
+    .notifications-panel {
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      /* gap: var(--gap-sm); */
+    }
+  }
+}
+
+::ng-deep .notifications-panel .p-overlay-badge .p-badge {
+  background-color: var(--surface-900);
+  color: var(--primary-color-text);
+}
+
+::ng-deep .p-overlaypanel:after,
+.p-overlaypanel:before {
+  bottom: 100%;
+  left: calc(var(--overlayArrowLeft, 0) + 3.25rem);
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+::ng-deep .p-overlaypanel:before {
+  border-width: 10px;
+  margin-left: 1.1rem;
+}
+
+::ng-deep .config-panel-div.p-overlaypanel .p-overlaypanel-content {
+  padding: 0;
+}
