@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CurrentThemeService } from '@app/shared/services/current-theme/current-theme.service';
 import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
@@ -18,10 +19,11 @@ export class ThemeSwitchComponent {
     { icon: 'pi pi-moon', theme: 'dark' },
   ];
   #document = inject(DOCUMENT);
+  private _currentThemeService = inject(CurrentThemeService);
+
   isDarkMode = false;
   constructor() {
     if (this.isSystemDark()) {
-      console.log('xdd');
       this.toggleLightDark();
     }
   }
@@ -32,9 +34,12 @@ export class ThemeSwitchComponent {
     ) as HTMLLinkElement;
     if (linkElement.href.includes('dark')) {
       linkElement.href = 'theme-light.css';
+
       this.isDarkMode = false;
+      this._currentThemeService.setCurrentTheme('light-theme');
     } else {
       linkElement.href = 'theme-dark.css';
+      this._currentThemeService.setCurrentTheme('dark-theme');
       this.isDarkMode = true;
     }
   }

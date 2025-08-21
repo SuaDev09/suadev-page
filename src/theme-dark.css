@@ -1,2 +1,6 @@
 @import url(styles.css);
 @import url(primeng/resources/themes/aura-dark-noir/theme.css);
+
+:root {
+  --background-color: linear-gradient(90deg, #131111, #43225e);
+}

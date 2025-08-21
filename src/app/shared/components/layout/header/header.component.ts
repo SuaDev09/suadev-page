@@ -16,6 +16,7 @@ import { SidebarModule } from 'primeng/sidebar';
 // Constants
 import { ThemeSwitchComponent } from '../../theme-switch/theme-switch.component';
 import { MenuItem } from 'primeng/api';
+import { CurrentThemeService } from '@app/shared/services/current-theme/current-theme.service';
 
 @Component({
   selector: 'app-header',
@@ -35,20 +36,26 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
+  private _currentThemeService = inject(CurrentThemeService);
   LOGO = '';
   fallbackUrl = 'assets/icons/account.png';
   showNotificationPanel = false;
   showConfigPanel = false;
   notificationQty = 0;
 
-  @ViewChild('notificationPanelOP') notificationPanelOP!: OverlayPanel;
-  @ViewChild('configPanelOP') configPanelOP!: OverlayPanel;
-  @ViewChild('menu') menu!: any;
   breadcrumbItems!: MenuItem[];
 
   home: MenuItem | undefined;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._currentThemeService.currentTheme$.subscribe((theme) => {
+      if (theme === 'dark-theme') {
+        this.LOGO = 'assets/icons/5.svg';
+      } else {
+        this.LOGO = 'assets/icons/6.svg';
+      }
+    });
+  }
 
   onNotificationPanelHide(value: boolean) {
     this.showNotificationPanel = value;
