@@ -1,56 +1,72 @@
 /* You can add global styles to this file, and also import other style files */
-/* Primefaces imports */
-@import "primeng/resources/themes/lara-light-purple/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
-/* Custom imports */
-@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
-/* Variable's globals*/
 :root {
-  --font-family: "Montserrat", sans-serif;
-  --font-size: 16px;
-  --font-size-titles: 48px;
-  --font-size-h2: 36px;
-  --font-size-text: 16px;
-  --font-size-span-title: 22px;
-  --font-size-span-subtitle: 20px;
-  --font-size-span-text: 16px;
-  --font-size-buttons: 1.2rem;
-  --font-weight-buttons: 800;
-  --font-weight-titles: 700;
-  --font-weight-text: 500;
-  --font-color-black: #070100;
-  --font-color-dark: rgb(15, 2, 22);
-  --font-color: white;
-  --border-radius: 5px;
-  --color-green-dark: #435334;
-  --color-green-light: #cedebd;
-  --color-green-medium: #9eb384;
-  --color-purple-light: #e9d5da;
-  --color-purple-medium: rgb(191, 90, 242);
-  --color-purple-dark: #8e46d6;
-  --color-purple-darker: rgb(15, 2, 22);
-  --background-color: #fef7ff;
+  --w-marker: 50px;
+  --h-marker: 50px;
+  --icon-size-sm: 12px;
+  --icon-size: 24px;
+  --font-size-sm: 12px;
+  --font-size-md: 16px;
+  --font-size-lg: 22px;
+  --font-title-xl: 26px;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-semi-bold: 500;
+  --font-weight-bold: 600;
+  --border-radius-circle: 50%;
+  --border-radius-sm: 5px;
+  --border-radius: 7px;
+  --font-color-primary: #002956;
+  --font-color-secondary: #2887b4;
+  --font-color-tertiary: #828282;
+  --font-color-dark: #191d23;
+  --bg-color-primary: #f9f9ff;
+  --bg-color-dark: #191d23;
+  --bg-color-darker: #7ab7d1;
+  --bg-color-secondary: #ffffff;
+  --bg-color-tertiary: #e7eaee;
+  --bg-color-card-header: #d9d9d9;
+  --bg-color-active: #e7eaee;
+  --w-sidebar-element: 210px;
+  --h-sidebar-element: 60px;
+  --h-navbar-element: 50px;
+  --border-color: #d0d5dd;
+  --padding-sm: 0.25rem;
+  --padding-md: 0.5rem;
+  --padding: 1.25rem;
+  --gap-xs: 4px;
+  --gap-sm: 8px;
+  --gap-md: 12px;
+  --gap-lg: 14px;
+  --gap-xl: 16px;
+  --flex-basis: calc((100% - (4 * var(--gap-xl))) / 4);
+  --font-size-text-sm: 12px;
 }
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
-  width: 100%;
-  font-family: var(--font-family);
-  font-weight: var(--font-weight-text);
-  color: var(--font-color);
 }
 
-html {
+html,
+body {
+  overflow-y: hidden; /*sort images*/
+  width: 100%;
   min-height: 100vh;
-  /* background-color: var(--background-color); */
-  /* background: -webkit-linear-gradient(90deg, #eccbff, #fbd9ff, #ffe5e7);
-  background: linear-gradient(90deg, #eccbff, #fbd9ff, #ffe5e7); */
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  background-color: var(--surface-50);
+  color: var(--text-color);
+  font-family: var(--font-family);
+  font-feature-settings: var(--font-feature-settings, normal);
+}
 
-  background: -webkit-linear-gradient(90deg, #131111, #43225e);
-  background: linear-gradient(90deg, #131111, #43225e);
+/* ::ng-deep .p-button {
+  font-size: var(--font-size-sm) !important;
+} */
+
+.swal2-popup {
+  z-index: 1000000;
 }
